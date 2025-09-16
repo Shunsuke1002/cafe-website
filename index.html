@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>店名 | スマホ用ワイヤーフレーム実装</title>
+  <meta name="description" content="カフェのシンプルなスマホ用ワイヤーフレーム実装。写真、こだわり、ギャラリー、メニュー、地図、住所、営業時間を掲載。" />
+  <style>
+    :root{
+      --bg:#f6f7f8;
+      --fg:#111;
+      --muted:#7a7f88;
+      --brand:#333; /* 必要なら変更 */
+      --card:#ffffff;
+      --border:#e5e7eb;
+      --radius:16px;
+      --shadow:0 2px 8px rgba(0,0,0,.06);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,"Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic","Noto Sans JP",Meiryo,sans-serif}
+    img{display:block;max-width:100%;height:auto}
+    a{color:inherit}
+
+    .container{max-width:720px;margin:0 auto;padding:16px}
+
+    /* ヘッダー（店名） */
+    header{
+      position:sticky;top:0;z-index:10;
+      background:var(--card);border-bottom:1px solid var(--border);
+      box-shadow:0 0 0 rgba(0,0,0,0);
+    }
+    .brand{display:flex;align-items:center;gap:8px;padding:12px 16px;font-weight:700;font-size:18px}
+
+    /* カード的な共通枠 */
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .section{margin:16px 0}
+
+    /* ヒーロー：店の写真 */
+    .hero{overflow:hidden}
+    .hero .ph{display:grid;place-items:center;aspect-ratio:16/10;background:#e5e7eb;color:#555;font-weight:600}
+
+    /* こだわり */
+    .lead{padding:20px}
+    .lead h2{margin:0 0 8px;font-size:18px}
+    .lead p{margin:0;color:#333}
+
+    /* ギャラリー 3枚 */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}
+    .gallery .ph{display:grid;place-items:center;aspect-ratio:1/1;background:#e5e7eb;color:#555;border-radius:12px;font-size:13px}
+
+    /* メニュー */
+    .menu{padding:16px}
+    .menu h2{margin:0 0 12px;font-size:18px}
+    .menu-list{display:grid;gap:10px}
+    .menu-item{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px dashed var(--border);border-radius:12px;background:#fafafa}
+    .menu-item .name{font-weight:600}
+    .menu-item .price{color:var(--muted)}
+
+    /* アクセス（地図・住所・営業時間） */
+    .access{display:grid;gap:12px;padding:12px}
+    .map{overflow:hidden;border-radius:12px;border:1px solid var(--border);background:#e5e7eb}
+    .map .ph{display:grid;place-items:center;aspect-ratio:16/10;color:#555}
+    .info{display:grid;gap:8px}
+    .info .box{padding:12px;border:1px solid var(--border);border-radius:12px;background:#fff}
+    .info .ttl{font-size:12px;color:var(--muted);letter-spacing:.04em}
+    .info .val{margin-top:4px}
+
+    footer{color:#777;text-align:center;padding:24px 0}
+
+    /* 大きめ画面（タブレット以上）でアクセス部分を横並びに */
+    @media(min-width:700px){
+      .access{grid-template-columns:1.2fr .8fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">店名（仮）</div>
+  </header>
+
+  <main class="container">
+    <!-- 店の写真（ヒーロー） -->
+    <section class="section card hero" aria-label="店の写真">
+      <!-- 画像を差し替える場合：下のdivを<img src="images/hero.jpg" alt="店の外観"> に置き換え -->
+      <div class="ph">店の写真</div>
+    </section>
+
+    <!-- こだわり -->
+    <section class="section card lead" aria-label="店、珈琲のこだわりについて">
+      <h2>店、珈琲のこだわりについて</h2>
+      <p>ここにコンセプトや豆の産地、焙煎、抽出方法などの紹介文を入れる。120〜180字程度にまとめるとスマホで読みやすい。</p>
+    </section>
+
+    <!-- 3枚ギャラリー -->
+    <section class="section card" aria-label="写真ギャラリー">
+      <div class="gallery">
+        <div class="ph">写真</div>
+        <div class="ph">写真</div>
+        <div class="ph">写真</div>
+      </div>
+    </section>
+
+    <!-- メニュー -->
+    <section class="section card menu" aria-label="メニュー">
+      <h2>メニュー</h2>
+      <!-- 実際のメニューを下のダミーに追記/差し替えしてください -->
+      <div class="menu-list">
+        <div class="menu-item"><span class="name">ブレンドコーヒー（Hot/Ice）</span><span class="price">¥480</span></div>
+        <div class="menu-item"><span class="name">カフェラテ</span><span class="price">¥560</span></div>
+        <div class="menu-item"><span class="name">季節のドリップ（Single Origin）</span><span class="price">¥620</span></div>
+        <div class="menu-item"><span class="name">チーズケーキ</span><span class="price">¥520</span></div>
+        <!-- 例：<div class="menu-item"><span class="name">○○</span><span class="price">¥000</span></div> -->
+      </div>
+    </section>
+
+    <!-- アクセス（地図・住所・営業時間） -->
+    <section class="section card access" aria-label="アクセス">
+      <div class="map">
+        <!-- Google マップ埋め込みを使う場合は下記を差し替え（iframeのsrcを貼る） -->
+        <!-- <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="100%" style="border:0" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+        <div class="ph">地図</div>
+      </div>
+      <div class="info">
+        <div class="box">
+          <div class="ttl">住所</div>
+          <div class="val">〒000-0000 東京都〇〇区〇〇 1-2-3 ビル1F</div>
+        </div>
+        <div class="box">
+          <div class="ttl">営業時間</div>
+          <div class="val">平日 8:00-19:00 / 土日祝 9:00-18:00（不定休）</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    © <span id="y"></span> 店名（仮）
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
